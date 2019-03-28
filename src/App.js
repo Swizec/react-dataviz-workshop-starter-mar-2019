@@ -5,6 +5,8 @@ import styled from "styled-components";
 import "./App.css";
 
 import DashboardContext from "./DashboardContext";
+import Scatterplot from "./Scatterplot";
+import Datapoint from "./Datapoint";
 
 const Svg = styled.svg`
     width: 100%;
@@ -61,8 +63,6 @@ class App extends Component {
                     {}
                 );
 
-            console.log(data);
-
             this.setState({ data });
         });
     }
@@ -76,7 +76,24 @@ class App extends Component {
                     <h1 className="App-title"> Welcome to React </h1>{" "}
                 </header>{" "}
                 {data !== null ? (
-                    <DashboardContext.Provider value={this.state} />
+                    <DashboardContext.Provider value={this.state}>
+                        <Svg>
+                            <Scatterplot
+                                data={Object.values(data).filter(
+                                    d => d.weight && d.height
+                                )}
+                                x={70}
+                                y={10}
+                                xProp={d => d.weight[0]}
+                                xLabel="Weight"
+                                yProp={d => d.height[0]}
+                                yLabel="Height"
+                                width={300}
+                                height={300}
+                                datapoint={props => <Datapoint {...props} />}
+                            />
+                        </Svg>
+                    </DashboardContext.Provider>
                 ) : null}
             </div>
         );
