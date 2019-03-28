@@ -47,7 +47,11 @@ class Scatterplot extends React.PureComponent {
         return (
             <g transform={`translate(${x}, ${y})`}>
                 {data.map(d =>
-                    datapoint({ x: xScale(xProp(d)), y: yScale(yProp(d)) })
+                    datapoint({
+                        x: xScale(xProp(d)),
+                        y: yScale(yProp(d)),
+                        breed: d.breed
+                    })
                 )}
                 <Axis x={0} y={0} scale={yScale} type="Left" label={xLabel} />
                 <Axis

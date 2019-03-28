@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+
+import DashboardContext from "./DashboardContext";
 
 const Circle = styled.circle`
     fill: steelblue;
@@ -8,32 +10,18 @@ const Circle = styled.circle`
     stroke-width: 1.5px;
 `;
 
-class Datapoint extends React.Component {
-    state = {
-        r: 3
-    };
+function Datapoint({ x, y, breed }) {
+    const { highlightedBreed, highlightBreed } = useContext(DashboardContext);
 
-    highlight = () => {
-        this.setState({ r: 10 });
-    };
-
-    unhighlight = () => {
-        this.setState({ r: 3 });
-    };
-
-    render() {
-        const { x, y } = this.props;
-
-        return (
-            <Circle
-                cx={x}
-                cy={y}
-                r={this.state.r}
-                onMouseOver={this.highlight}
-                onMouseOut={this.unhighlight}
-            />
-        );
-    }
+    return (
+        <Circle
+            cx={x}
+            cy={y}
+            r={highlightedBreed === breed ? 10 : 3}
+            onMouseOver={() => highlightBreed(breed)}
+            onMouseOut={() => highlightBreed(null)}
+        />
+    );
 }
 
 export default Datapoint;

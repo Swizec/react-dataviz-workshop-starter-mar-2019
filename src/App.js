@@ -92,6 +92,36 @@ class App extends Component {
                                 height={300}
                                 datapoint={props => <Datapoint {...props} />}
                             />
+
+                            <Scatterplot
+                                data={Object.values(data).filter(
+                                    d => d.sales && d.obey
+                                )}
+                                x={420}
+                                y={10}
+                                xProp={d => d.sales}
+                                xLabel="Sales"
+                                yProp={d => d.obey}
+                                yLabel="IQ"
+                                width={300}
+                                height={300}
+                                datapoint={props => <Datapoint {...props} />}
+                            />
+
+                            <Scatterplot
+                                data={Object.values(data).filter(
+                                    d => d.weight && d.obey
+                                )}
+                                x={770}
+                                y={10}
+                                xProp={d => d.weight[0]}
+                                xLabel="Weight"
+                                yProp={d => d.obey}
+                                yLabel="IQ"
+                                width={300}
+                                height={300}
+                                datapoint={props => <Datapoint {...props} />}
+                            />
                         </Svg>
                     </DashboardContext.Provider>
                 ) : null}
